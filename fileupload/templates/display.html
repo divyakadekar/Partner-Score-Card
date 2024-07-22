@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uploaded File</title>
+    <style>
+      .dataframe {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      .dataframe th, .dataframe td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      .dataframe th {
+        background-color: #f2f2f2;
+      }
+      .sidebar {
+            width: 200px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-right: 1px solid #ccc;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Uploaded File</h1>
+    <table>
+      <tr>
+        <th>Column Names</th>
+        <th>Head</th>
+      </tr>
+      <tr>
+        <td>{{ columns }}</td>
+        <td>{{ head | safe }}</td>
+      </tr>
+    </table>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 sidebar">
+                <h3>MPH Values</h3>
+                <div class="btn-group-vertical">
+                    {% for value in mph_values %}
+                        <button type="button" class="btn btn-primary">{{ value }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <script>
+        // Optional: Add functionality to buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('You clicked: ' + this.textContent);
+                // You can add more functionality here, like making an AJAX call or redirecting
+            });
+        });
+    </script>
+  </body>
+</html>

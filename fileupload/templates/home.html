@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            font-size: 18px;
+            background-color: lightblue;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        .info {
+            float: left;
+            font-size: 18px;
+            color: whitesmoke;
+            background-color: #004886;
+            width: 220px;
+            height: 40px;
+            margin-left: 10px;
+            text-align: center;
+            display: flex;
+            text-decoration: none;
+        }
+
+        .compare {
+            margin-left: 25px;
+            font-size: 18px;
+            width: 220px;
+            height: 40px;
+            color: white;
+            background-color: #004886;
+        }
+
+        .about {
+            margin-left: 35px;
+            font-size: 18px;
+            width: 220px;
+            height: 40px;
+            color: white;
+            background-color: #004886;
+        }
+
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 200px; /* Adjusted position */
+            width: 200px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        .sidebar button {
+            display: block;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+
+        .logo {
+            background-color: white;
+            margin-top: -17px;
+            margin-left: -10px;
+            height: 54px;
+            width: 1280px;
+        }
+
+        h1 {
+            color: black;
+            font-size: x-large;
+            margin-top: 17px;
+        }
+
+        #img {
+            margin-top: -99px;
+            margin-left: 1050px;
+            height: 64px;
+            width: 205px;
+        }
+
+        a {
+            color: red;
+        }
+
+        .hidden-content {
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo">
+        <h1 style="text-align: center;">Welcome to the Partner Scorecard Project</h1>
+        <img src="https://creditaccesslife.in/images/CreditAccessLife%201%20(1).png" id="img">
+    </div>
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+    
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if session.username %}
+    <p>Hello, {{ session.username }}!</p>
+    <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+    <a href="{{ url_for('signup') }}">Signup</a>
+    <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+
+    <div class="navbar">
+        <button class="info">Information about MPH</button>
+        <button class="compare">Comparison about MPH</button>
+        <button class="about">About Partner Scorecard</button>
+    </div>
+
+    <!-- Hidden content for all sections -->
+    <div class="hidden-content" id="about-content">
+        <hr width="100%" size="3" color="black">
+
+        <h3> Key Terminology of Insurance</h3>
+        <p><b>Insurance:</b> Insurance is a way to protect yourself from unexpected events.</p>
+        <p><b>Insurer:</b> Insurance Company who will provide policy.</p>
+        <p><b>Insured:</b> Who takes the policy.</p>
+        <p><b>MPH:</b> Master Policy Holder (MPH) who gives business to the insurance company.</p>
+        <p><b>Premium:</b> The amount of money an individual or business pays for an insurance policy.</p>
+        <p><b>Sum Assured:</b> A fixed amount of money that an insurance company agrees to pay to the policyholder or their nominee in the event of the policyholder's death.</p>
+        <p><b>Loss Ratio:</b> A metric used by an insurer to determine how much of the premium collected will likely cover expected claims and other expenses.</p>
+        <p><b>Claims:</b> Number of events reported to the insurer for settlement.</p>
+        <p><b>No. of lives:</b> Refers to people.</p>
+        <p><b>IRDAI:</b> Insurance Regulatory and Development Authority of India, a statutory body that regulates and supervises the insurance sector.</p>
+
+        <hr width="100%" size="3" color="black">
+        <h3> About Company </h3>
+        <p> Credit Access Life Insurance Limited (CALI), with its headquarters in Bengaluru, commenced its journey in May 2023 with a distinct approach to the insurance sector. CALI is dedicated to serve the underserved and unserved population of India, and CALI will only provide Life insurance.</p>
+
+        <hr width="100%" size="3" color="black">
+
+        <h3> Introduction about PartnerScorecard </h3>
+        <p>Credit Access Life Insurance as a company provides majorly group insurance. As of now they have covered nearly 150 entities (Groups). These entities include FPO’s, SHG’s, Co-operative societies, etc. This Project involves creating Dashboard which can be used to understand how each of the groups are performing in terms of Business provided (Lives, Premium), Claims ratio, etc.</p>
+
+        <hr width="100%" size="3" color="black">
+
+        <h3> Objective </h3>
+        <p>* The main Goal of this project is to design Dashboard categorize the MPHs under different categories based on their performance</p>
+        <p>* Identify strengths and weaknesses in partner performance to drive strategic decision-making</p>
+        <p>* Implement initiatives to improve partner effectiveness and enhance overall company performance.</p>
+
+        <hr width="100%" size="3" color="black">
+        <h3> Logic </h3>
+        <p></p>
+    </div>
+
+    <!-- Sidebar for MPH Values -->
+    <div class="sidebar" id="mph-sidebar">
+        <h3>MPH Values</h3>
+        <div class="btn-group-vertical">
+            {% for value in mph_values %}
+            <button type="button" class="btn btn-primary">{{ value }}</button>
+            {% else %}
+            <p>No MPH values available.</p>  <!-- Message if no values -->
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        const infoButton = document.querySelector('.info');
+        const mphSidebar = document.getElementById('mph-sidebar');
+        const aboutButton = document.querySelector('.about');
+        const aboutContent = document.getElementById('about-content');
+
+        infoButton.addEventListener('click', () => {
+            // Toggle the display of the sidebar
+            if (mphSidebar.style.display === 'none' || mphSidebar.style.display === '') {
+                mphSidebar.style.display = 'block'; // Show the sidebar
+            } else {
+                mphSidebar.style.display = 'none'; // Hide the sidebar
+            }
+        });
+
+        aboutButton.addEventListener('click', () => {
+            // Toggle the display of the about content
+            if (aboutContent.style.display === 'none' || aboutContent.style.display === '') {
+                aboutContent.style.display = 'block'; // Show the about content
+            } else {
+                aboutContent.style.display = 'none'; // Hide the about content
+            }
+        });
+    </script>
+</body>
+
+</html>

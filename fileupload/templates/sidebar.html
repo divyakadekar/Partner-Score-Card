@@ -1,0 +1,11 @@
+<!-- sidebar.html -->
+<div class="sidebar" id="mph-sidebar">
+    <h3>MPH Values</h3>
+    <div class="btn-group-vertical">
+        {% for value in mph_values %}
+        <button type="button" class="btn btn-primary">{{ value }}</button>
+        {% else %}
+        <p>No MPH values available.</p>  <!-- Message if no values -->
+        {% endfor %}
+    </div>
+</div>
