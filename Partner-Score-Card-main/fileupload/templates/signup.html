@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+
+    <!-- CSS -->
+    <style>
+         body {
+      font-family: Arial, sans-serif;
+      background-color:lightblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      
+    }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+      background-color: white;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 18px;
+    }
+
+    button {
+      display: block;
+      width: 30%;
+      padding: 10px;
+      background-color: #004886;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: green;
+    }
+    a{
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>SignUp</h1>
+        <form id="signupForm" method="post" onsubmit="return formValidate()">
+            <div class="form">
+                <label>Username: <input type="text" name="username" required></label>
+            </div>
+            <div class="form">
+                <label>Password: <input type="password" id="password" name="password" required></label>
+            </div>
+            <div class="form">
+                <label>First Name: <input type="text" name="first_name" required></label>
+            </div>
+            <div class="form">
+                <label>Last Name: <input type="text" name="last_name" required></label>
+            </div>
+            <div class="form">
+                <label>Email: <input type="email" name="email" required></label><br>
+            </div>
+            <button type="submit">Sign Up</button>
+            <br>
+            <a href="{{ url_for('login') }}">Already have an account? Login</a>
+
+        </form>
+    </div>
+
+    <!-- Javascript -->
+    <script>
+        function formValidate() {
+            var password = document.getElementById("password").value;
+            var validationMessage = validatePassword(password);
+            if (validationMessage !== null) {
+                alert(validationMessage);
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+
+        function validatePassword(password) {
+            let errors = [];
+
+            // Check if password is at least 8 characters long
+            if (password.length < 8) {
+                errors.push("Password must be at least 8 characters long.");
+            }
+
+            // Check if password contains at least one uppercase letter
+            if (!/[A-Z]/.test(password)) {
+                errors.push("Password must contain at least one uppercase letter.");
+            }
+
+            // Check if password contains at least one lowercase letter
+            if (!/[a-z]/.test(password)) {
+                errors.push("Password must contain at least one lowercase letter.");
+            }
+            
+            // Check if password contains at least one number
+            if (!/\d/.test(password)) {
+                errors.push("Password must contain at least one number.");
+            }
+
+            // If any errors, return the error messages as a string
+            if (errors.length > 0) {
+                return errors.join("/n");
+            }
+
+            // If all conditions are met, return null (valid password)
+            return null;
+        }
+    </script>
+</body>
+
+</html>
